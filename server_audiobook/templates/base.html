@@ -1,0 +1,30 @@
+<!doctype html>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}"/>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  <body>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+    <table>
+      <tr>
+        <td>
+          <a href="{{url_for('index')}}">Домой</a>
+        </td>
+      </tr>
+    </table>
+    <p  style="font-size: 20px; text-align: center;">
+      {% for a in alphabet_count %}
+          {% if  a[1] > 0 %}
+              <a href="{{url_for('alphabet', c=a[0])}}">{{a[0]}}</a>
+          {% else %}
+              {{a[0]}}
+          {% endif %}
+      {% endfor %}
+    </p>      
+    {% block content %}
+    {% endblock %}
+  </body>
+</section>

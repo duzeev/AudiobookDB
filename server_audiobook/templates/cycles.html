@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Цикл: </h1>
+    
+    {% for c in cycle_list %}
+        <p style="font-size: 20px">{{c[4]}} <a href="{{ url_for('cycle', id=c[2]) }}">{{c[3]}}</a></p>
+    {% endfor%}
+
+    {% for b in books %}
+        <div class="main">
+            <table>
+                <tr>
+                    <td width="350", valign="top">
+                        {% for s in b['title'] %}
+                            <p style="font-size: 24px"><b>{{s}}</b></p>    
+                        {% endfor %}
+                        <p style="font-size: 20px">Год издания:<b>{{b['year']}}</b></p>
+                        
+                        {% if b['writers']|length > 1 %}
+                            <p style="font-size: 20px">Авторы:</p>
+                        {% else %}
+                            <p style="font-size: 20px">Автор:</p>
+                        {% endif %}
+                        {% for w in b['writers'] %}
+                            <p style="font-size: 20px"><a href="{{ url_for('author', id=w[0]) }}">{{w[1]}}</a></p>
+                        {% endfor %}
+                        {% if (b['cycles'] != None) and (b['cycles']|length > 0) %}
+                            <p style="font-size: 20px">Цикл:</p>
+                            {% for с in b['cycles'] %}
+                                <p style="font-size: 20px">{{с[2]}}<a href="{{ url_for('cycle', id=с[0]) }}">{{с[1]}}</a></p>
+                            {% endfor %}
+                        {% endif%}
+                    </td>
+                    {% for r in b['realiases'] %}
+                        <td valign="top">
+                            <p><img class="fit-picture" src="{{ url_for('static', filename='pic/'+r[3]) }}"></p>
+                        </td>
+                        <td width="250", valign="top">
+                            <p style="font-size: 20px">Озвучка:</p>
+                            {% for w in r[1] %}
+                                <p style="font-size: 18px"><a href="{{ url_for('author', id=w[0]) }}">{{w[1]}}</a></p>
+                            {% endfor%}
+                            <p style="font-size: 24px"><a href="{{url_for('static', filename='zip/'+r[2])}}">Загрузить</a></p>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock %}
