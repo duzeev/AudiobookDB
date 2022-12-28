@@ -41,26 +41,6 @@
 </table>
 {% endif %}
 
-{%  if middle_name|length > 0 %}
-    <h3>По отчеству:</h3>
-    <table align="center" width="100%"> 
-        {%- for row in middle_name|batch(4) %}
-        <tr>
-            {%- for column in row %}
-                <td valign="top">
-                    <div class="main">
-                        <p><a href="{{url_for('author', id=column[0])}}">{{column[1]}}</a>
-                        {% if column[2] > 0  %}книг: {{column[2]}}{% endif %}
-                        {% if column[3] > 0  %}озвучек: {{column[3]}} {% endif %}
-                        </p>
-                    </div>    
-                </td>
-            {%- endfor %}
-        </tr>
-        {%- endfor %}
-    </table>
-{% endif %}
-
 {%  if nick_name|length > 0 %}
 <h3>По погремухе:</h3>
 <table align="center" width="100%"> 

@@ -220,7 +220,7 @@ def author(id):
         SELECT b.id, b.title, b.year, b.cycle_id 
         FROM book_writer bw, book b 
         WHERE bw.book_id = b.id AND bw.writer_id = '{}'
-        ORDER BY b.id; 
+        ORDER BY b.year; 
         '''.format(str(id))
     cdb.execute(sql)
     res_books = cdb.fetchall()
@@ -280,10 +280,6 @@ def alphabet(c):
             author_count, voice_count =  get_count_for_piople(w[0])
             first_name.append([w[0], wstr, author_count, voice_count])
 
-        if (w[2] != None) and (w[2][0].upper() == c):
-            author_count, voice_count =  get_count_for_piople(w[0])
-            middle_name.append([w[0], wstr, author_count, voice_count])
-
         if (w[3] != None) and (w[3][0].upper() == c):
             author_count, voice_count =  get_count_for_piople(w[0])
             last_name.append([w[0], wstr, author_count, voice_count])
@@ -292,8 +288,14 @@ def alphabet(c):
             author_count, voice_count =  get_count_for_piople(w[0])
             nick_name.append([w[0], wstr, author_count, voice_count])
 
+
+    first_name  = sorted( first_name,   key = lambda x: ( x[2] + x[3] ), reverse=True )
+    last_name   = sorted( last_name,    key = lambda x: ( x[2] + x[3] ), reverse=True )
+    nick_name   = sorted( nick_name,    key = lambda x: ( x[2] + x[3] ), reverse=True )
+
+
     return render_template("alphabet.html", alphabet_count=alphabet_count, 
-                        first_name=first_name, last_name=last_name , middle_name=middle_name, nick_name=nick_name)
+                        first_name=first_name, last_name=last_name, nick_name=nick_name)
 
 @app.route('/')
 def index():
@@ -306,11 +308,8 @@ def index():
         wstr = get_name(w)
         author_count, voice_count =  get_count_for_piople(w[0])
         pioples.append([w[0], wstr, author_count, voice_count])
-
     
     pioples = sorted( pioples, key = lambda x: ( x[2] + x[3] ), reverse=True )
-
-    pass
 
     return render_template("index.html", pioples=pioples, alphabet_count=alphabet_count)
 

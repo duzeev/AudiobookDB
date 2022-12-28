@@ -1,7 +1,7 @@
 
 BEGIN;
 
-INSERT INTO piople(name_in_list, first_name, last_name, middle_name) VALUES('Алекс де Клемешье', 'Алекс', 'де','Клемешье');
+INSERT INTO piople(name_in_list, first_name, middle_name, last_name) VALUES('Алекс де Клемешье', 'Алекс', 'де','Клемешье');
 
 INSERT INTO piople(name_in_list, first_name, last_name, nick_name) VALUES('FAN12', 'Альберт', 'Фомин', 'FAN12');
 INSERT INTO piople(name_in_list, first_name, last_name, nick_name) VALUES('Петроник', 'Никита', 'Петров', 'Петроник');
