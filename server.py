@@ -316,4 +316,4 @@ def index():
 if __name__ == "__main__":
     conn = psycopg2.connect(database=DATABASE, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
     make_alphabet_counts()
-    app.run(port=8080)
+    app.run(port=80)

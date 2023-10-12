@@ -20,6 +20,8 @@ infoParentCycle = 'parent cycle'
 infoWriters = 'writers'
 infoReaders = 'readers'
 
+bookCount = 0
+
 def IsCycle(name) -> bool:
    if name[len(name) - 1] == '+':
       return True
@@ -301,6 +303,8 @@ def AddUpdateRelease(book_id, zip, pic, readersDB):
 
 def addBook(bookinfo, book, counter):
 
+   global  bookCount
+
    booki = copy.deepcopy(bookinfo)
 
    full_path = booki[infoFullPath]
@@ -348,7 +352,7 @@ def addBook(bookinfo, book, counter):
    dirs = os.listdir(full_dir_pic)
 
    zipFileBase, zipFileExt = os.path.splitext(name_ext)
-   
+
    for f in dirs:
       ffull = os.path.join(full_dir_pic, f)
       fname, fext = os.path.splitext(f)
@@ -365,14 +369,23 @@ def addBook(bookinfo, book, counter):
 
    AddUpdateRelease(id, relative_path_zip, relative_path_pic, readersBD)
 
+   print('*', end='', flush = True)
+
+   bookCount += 1
+
    return True
 
 def scanRoot(path):
+
+   global bookCount
+
    dirs = os.listdir(path)
    dirs.sort()
 
    num = 1
    for f in dirs:
+      print('{:<40}'.format(f), end='', flush = True)
+      bookCount  = 0
       full_path = os.path.join(path, f)
       if os.path.isdir(full_path):
          bookinfo = {}
@@ -390,7 +403,7 @@ def scanRoot(path):
          if addBook(bookinfo, f, num):
             num += 1
       conn.commit()
-
+      print(' '+str(bookCount))
 
 def main() -> int:
    #establishing the connection
@@ -404,7 +417,7 @@ def main() -> int:
 
    #Closing the connection
    conn.close()
-   print('   ALL DONE ... ')
+   print('ALL DONE ... ')
    return 0
 
 if __name__ == '__main__':
