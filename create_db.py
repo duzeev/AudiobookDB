@@ -1,4 +1,4 @@
-from itertools import cycle
+import sys
 import psycopg2
 import sys
 import os
@@ -11,8 +11,8 @@ USER     = 'daudiobookuser'
 PASSWORD = '1234'
 HOST     = 'localhost'
 
-pathZip = '/media/duzeev/Archive/AudioBook/'
-pathPic = '/media/duzeev/Archive/AudioBook/'
+pathZip  = sys.argv[1]
+pathPic  = sys.argv[2]
 
 infoFullPath = 'full path'
 infoParentCycleDB = 'parent cycle db'
@@ -251,12 +251,12 @@ def AddBookDB(id, title, cycle, year, num, writersDB):
 
    if id == None:
       sql = 'INSERT INTO book(' +  sql_f + ') VALUES(' +  sql_v + ')'
-      # print('INSERT book ' + str(num) + ' ' + str(year) + ' ' + title)
+      # print(sql)
    else:
       sql_f = 'id, ' + sql_f
       sql_v = '\'' + str(id) + '\', ' + sql_v
       sql = 'UPDATE book SET(' +  sql_f + ') = (' +  sql_v + ')' + ' WHERE id = '+ str(id) + ';'
-      # print('UPDATE book ' + str(num) + ' ' + str(year) + ' ' + title)
+      # print(sql)
             
    cdb = conn.cursor()
    cdb.execute(sql)
@@ -314,7 +314,7 @@ def addBook(bookinfo, book, counter):
    full_dir, name_ext = os.path.split(full_path)
    txt = full_name+'.txt'
    if os.path.exists(txt):
-      with open(txt, 'r') as file:
+      with open(txt, mode="r", encoding="utf-8") as file:
          book = file.read().rstrip()
 
    book_name, ext = os.path.splitext(book)
@@ -338,7 +338,7 @@ def addBook(bookinfo, book, counter):
       raise NameError('Can\'t set book year:' + full_path)
 
    if year < num:
-      print('!!!!!!!!! year < num : ' + full_path)
+      # print('!!!!!!!!! year < num : ' + full_path)
       num, year = year, num
 
    id = FindBookId(title)
@@ -366,6 +366,9 @@ def addBook(bookinfo, book, counter):
       raise NameError('Can\'t find picture file for:'+full_path)
 
    relative_path_pic = os.path.relpath(picFile, pathPic)
+
+   relative_path_zip = relative_path_zip.replace("\\", "/")
+   relative_path_pic = relative_path_pic.replace("\\", "/")
 
    AddUpdateRelease(id, relative_path_zip, relative_path_pic, readersBD)
 

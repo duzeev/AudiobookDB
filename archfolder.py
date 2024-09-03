@@ -1,12 +1,16 @@
+import sys
 import os 
 import shutil
 import zipfile
 import time
 import datetime
 
-pathFrom = '/media/duzeev/Archive/AudioBookRaw/'
-pathZip  = '/media/duzeev/Archive/AudioBook/'
-pathPic  = '/media/duzeev/Archive/AudioBook/'
+
+print(sys.argv)
+
+pathFrom = sys.argv[1]
+pathZip  = sys.argv[2]
+pathPic  = sys.argv[3]
 
 ReWriteAll = False
 

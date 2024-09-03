@@ -42,8 +42,12 @@ CREATE TABLE book_release (
     id SERIAL PRIMARY KEY,
     book_id INTEGER NOT NULL REFERENCES book(id),
     zip VARCHAR,
-    pic VARCHAR 
+    pic VARCHAR,
+    new BOOLEAN not null,
+    del BOOLEAN not null
 );
+ALTER TABLE book_release ALTER COLUMN new SET DEFAULT TRUE;
+ALTER TABLE book_release ALTER COLUMN del SET DEFAULT FALSE;
 GRANT ALL PRIVILEGES ON TABLE book_release TO daudiobookuser;
 GRANT ALL PRIVILEGES ON SEQUENCE book_release_id_seq TO daudiobookuser;
 

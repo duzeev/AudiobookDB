@@ -33,14 +33,14 @@
                     </td>
                     {% for r in b['realiases'] %}
                         <td valign="top">
-                            <p><img class="fit-picture" src="{{ url_for('static', filename='pic/'+r[3]) }}"></p>
+                            <p><img class="fit-picture" src="{{ url_for('static', filename='pic'+r[3]) }}"></p>
                         </td>
                         <td width="250", valign="top">
                             <p style="font-size: 20px">Озвучка:</p>
                             {% for w in r[1] %}
                                 <p style="font-size: 18px"><a href="{{ url_for('author', id=w[0]) }}">{{w[1]}}</a></p>
                             {% endfor%}
-                            <p style="font-size: 24px"><a href="{{url_for('static', filename='zip/'+r[2])}}">Загрузить</a></p>
+                            <p style="font-size: 24px"><a href="{{url_for('static', filename='zip'+r[2])}}">Загрузить</a></p>
                         </td>
                     {% endfor %}
                 </tr>

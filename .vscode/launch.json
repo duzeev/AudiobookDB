@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "type": "bashdb",
             "request": "launch",
             "name": "Bash-Debug (hardcoded script name)",
@@ -17,6 +25,47 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/server.py",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: ArchFolder Windows",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/archfolder.py",
+            "args": [
+                "d:/AudioBookRaw",
+                "d:/AudioBook",
+                "d:/AudioBook"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Create DB Windows",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/create_db.py",
+            "args": [
+                "d:/AudioBook",
+                "d:/AudioBook"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: ArchFolder Linux",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/archfolder.py",
+            "args": [
+                "/media/duzeev/Archive/AudioBookRaw/",
+                "/media/duzeev/Archive/AudioBook/",
+                "/media/duzeev/Archive/AudioBook/"
+            ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "justMyCode": true
