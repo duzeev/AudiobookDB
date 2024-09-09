@@ -16,7 +16,7 @@ app = Flask(__name__)
 alphabet_count = []
 
 def make_alphabet_counts():
-    alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯ ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯ ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789'
     al = {}
     for a in alphabet:
         al[a] = 0
