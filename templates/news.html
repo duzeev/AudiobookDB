@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Цикл: </h1>
+    <h1>Новинки: </h1>
     
-    {% for c in cycle_list %}
-        <p style="font-size: 20px">{{c[4]}} <a href="{{ url_for('cycle', id=c[2]) }}">{{c[3]}}</a></p>
-    {% endfor%}
-
     {% for b in books %}
         <div class="main">
             <table>

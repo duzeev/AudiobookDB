@@ -288,10 +288,12 @@ def AddUpdateRelease(book_id, zip, pic, readersDB):
 
    release_id = FindRelease(book_id, zip)
    if release_id == None:
-      sql = 'INSERT INTO book_release(book_id, zip, pic) VALUES(\'' + str(book_id) + '\', \'' + zip + '\', \'' + pic +'\');'
+      sql = 'INSERT INTO book_release(book_id, zip, pic, new) VALUES(\'' + str(book_id) + '\', \'' + zip + '\', \'' + pic +'\', TRUE);'
       cdb.execute(sql)
       release_id = FindRelease(book_id, zip)
-
+   
+   sql = 'UPDATE book_release SET del=\'FALSE\' WHERE id='+str(release_id)+';'
+   cdb.execute(sql)
 
    for reader_id in readersDB:
       sql = 'SELECT * FROM release_reader WHERE release_id = \'' + str(release_id) + '\' AND reader_id = ' + str(reader_id) +  ';' 
@@ -381,6 +383,13 @@ def addBook(bookinfo, book, counter):
 def scanRoot(path):
 
    global bookCount
+
+   cdb = conn.cursor()
+
+   sql = 'UPDATE book_release SET new=\'FALSE\';'
+   cdb.execute(sql)
+   print('Now ' + cdb.statusmessage)
+
 
    dirs = os.listdir(path)
    dirs.sort()

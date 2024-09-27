@@ -3,7 +3,10 @@
 <section class="content">
   <header>
     {% block header %}
-    <a href="{{url_for('index')}}">Домой</a>
+    <ul>
+      <li><a href="{{url_for('index')}}">Домой</a></li>
+      <li><a href="{{url_for('news')}}">Новинки</a></li>
+    </ul>
     {% endblock %}
   </header>
   <body>

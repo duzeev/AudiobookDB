@@ -1,7 +1,14 @@
 from flask import Flask
 from flask import render_template
 
+import sys
 import psycopg2
+
+
+port  = 80
+      
+if(len(sys.argv) > 1):
+    port  = sys.argv[1]
 
 conn = None
 
@@ -168,10 +175,10 @@ def make_book(id, title, year, cycle_id):
     book['writers'] = writers
 
     realiases = []
-    sql  = 'SELECT id, book_id, zip, pic FROM book_release WHERE book_id = \'{}\';'.format(str(id))
+    sql  = 'SELECT id, book_id, zip, pic, new FROM book_release WHERE book_id = \'{}\';'.format(str(id))
     cdb.execute(sql)
     for rel in cdb.fetchall():
-        realiases.append( [rel[0], make_release_reader(rel[0]), rel[2], rel[3]])
+        realiases.append( [rel[0], make_release_reader(rel[0]), rel[2], rel[3], rel[4]])
     book['realiases'] = realiases
 
     return book
@@ -230,7 +237,7 @@ def author(id):
 
     books_voice = []
     sql =  '''  
-        SELECT b.id, b.title, b.year, b.cycle_id 
+        SELECT b.id, b.title, b.year, b.cycle_id
         FROM release_reader rr, book_release br, book b 
         WHERE rr.release_id = br.id AND br.book_id = b.id AND rr.reader_id = '{}'
         ORDER BY b.year; 
@@ -242,6 +249,30 @@ def author(id):
             books_voice.append(make_book(b[0], b[1], b[2], b[3]))
 
     return render_template("author.html", author_name=author_name, books=[books_writer, books_voice], alphabet_count=alphabet_count)
+
+@app.route('/news/')
+def news():
+
+    sql = 'SELECT  book_id FROM book_release WHERE new = \'TRUE\' GROUP BY book_id;'
+    cdb = conn.cursor()
+    cdb.execute(sql)
+    res = cdb.fetchall()
+
+    books = []
+    if(res != None):
+        for book in res:
+            print(book[0])
+
+            sql = 'SELECT id, title, year, num FROM book WHERE id = \'' + str(book[0]) + '\' ORDER BY num;'
+            cdb = conn.cursor()
+            cdb.execute(sql)
+            res_books = cdb.fetchall()
+            if len(res_books) > 0:
+                for b in res_books:
+                    books.append(make_book(b[0], b[1], b[2], b[3]))
+
+    return render_template("news.html", books=books, alphabet_count=alphabet_count)
+
 
 def get_count_for_piople(id):
     cdb = conn.cursor()
@@ -316,4 +347,4 @@ def index():
 if __name__ == "__main__":
     conn = psycopg2.connect(database=DATABASE, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
     make_alphabet_counts()
-    app.run(port=80)
+    app.run(port=port)

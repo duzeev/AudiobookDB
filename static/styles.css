@@ -6,11 +6,42 @@
     width: 250px;
   }
 
+div {
+  position: relative;
+  background-color: transparent;
+}
+.inner {
+/*  border: 1px solid #000; */
+  background-color: transparent;
+  position: absolute;
+  top: -21px;
+  left: -21px;
+  width: 100px;
+  height: 100px;
+}
+
 .main {
   padding: 8px; 
   background-color: rgba(103, 128, 128, 0.3);
   margin: 20px;
   font-size: 24px;
+}
+
+
+ul {
+  /* Добавим фоновый цвет для нашего меню */
+  background: #a8c5ce;
+  /* Выставим высоту */
+  height: 50px;
+  /* Уберем точки у li элементов */
+  list-style-type: none;
+  /* добавим отступ, чтобы крайние значения меню не были прижаты в плотную к границам меню */
+  padding: 20px;
+  /* Используем flexbox */  
+  display: flex;
+  justify-content: space-between;
+  /* Дополнительно сделаем вертикальное выравнивание */
+  align-items: center;
 }
 
 td {

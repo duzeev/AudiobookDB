@@ -46,8 +46,8 @@ CREATE TABLE book_release (
     new BOOLEAN not null,
     del BOOLEAN not null
 );
-ALTER TABLE book_release ALTER COLUMN new SET DEFAULT TRUE;
-ALTER TABLE book_release ALTER COLUMN del SET DEFAULT FALSE;
+ALTER TABLE book_release ALTER COLUMN new SET DEFAULT FALSE;
+ALTER TABLE book_release ALTER COLUMN del SET DEFAULT TRUE;
 GRANT ALL PRIVILEGES ON TABLE book_release TO daudiobookuser;
 GRANT ALL PRIVILEGES ON SEQUENCE book_release_id_seq TO daudiobookuser;
 

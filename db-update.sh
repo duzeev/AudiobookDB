@@ -1,2 +1,3 @@
 #/bin/bash
-python3 create_db.py
+source conf-linux.sh
+python3 db-update.py $DIR_ZIP $DIR_PIC

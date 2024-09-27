@@ -32,7 +32,12 @@
                     </td>
                     {% for r in b['realiases'] %}
                         <td valign="top">
-                            <p><img class="fit-picture" src="{{ url_for('static', filename='pic/'+r[3]) }}"></p>
+                            <div>
+                                <p><img class="fit-picture" src="{{ url_for('static', filename='pic/'+r[3]) }} "></p>
+                                {% if r[4] %}
+                                    <p><img class="inner" src="{{ url_for('static', filename='img/new.png') }}"></p>
+                                {% endif%}
+                            </div>
                         </td>
                         <td width="250", valign="top">
                             <p style="font-size: 20px">Озвучка:</p>
@@ -78,8 +83,13 @@
                 </td>
                 {% for r in b['realiases'] %}
                     <td valign="top">
-                        <p><img class="fit-picture" src="{{ url_for('static', filename='pic/'+r[3]) }}"></p>
-                    </td>
+                        <div>
+                            <p><img class="fit-picture" src="{{ url_for('static', filename='pic/'+r[3]) }} "></p>
+                            {% if r[4] %}
+                                <p><img class="inner" src="{{ url_for('static', filename='img/new.png') }}"></p>
+                            {% endif%}
+                        </div>
+                </td>
                     <td width="250", valign="top">
                         <p style="font-size: 20px">Озвучка:</p>
                         {% for w in r[1] %}
