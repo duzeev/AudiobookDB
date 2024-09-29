@@ -381,15 +381,7 @@ def addBook(bookinfo, book, counter):
    return True
 
 def scanRoot(path):
-
    global bookCount
-
-   cdb = conn.cursor()
-
-   sql = 'UPDATE book_release SET new=\'FALSE\';'
-   cdb.execute(sql)
-   print('Now ' + cdb.statusmessage)
-
 
    dirs = os.listdir(path)
    dirs.sort()
@@ -417,15 +409,62 @@ def scanRoot(path):
       conn.commit()
       print(' '+str(bookCount))
 
+
+def print_book(id):
+   print(id)
+
+def beforeUpdate():
+   cdb = conn.cursor()
+   sql = 'UPDATE book_release SET new=\'FALSE\';'
+   cdb.execute(sql)
+
+   sql = 'UPDATE book_release SET del=\'TRUE\';'
+   cdb.execute(sql)
+
+   print('Now ' + cdb.statusmessage)
+
+def afterUpdate():
+   cdb = conn.cursor()
+
+   # sql = 'DELETE FROM book_release WHERE del;'
+
+   sql = 'SELECT id FROM book_release WHERE del;'
+   cdb.execute(sql)
+   print('deleted releases' + cdb.statusmessage)
+
+   res = cdb.fetchall()
+   if res != None:
+      for r in res:
+         sql = 'DELETE FROM release_reader WHERE release_id = {}'.format(r[0])
+         cdb.execute(sql)
+         print('deleted releases:' + str(r) + ':' + cdb.statusmessage)      
+
+   sql = 'SELECT id FROM book_release WHERE del;'
+   cdb.execute(sql)
+   print('deleted releases' + cdb.statusmessage)
+
+   
+   sql = 'select book_id, count(book_id) AS num FROM book_release GROUP BY book_id;'
+   cdb.execute(sql)
+   res = cdb.fetchall()
+   if res != None:
+      for book in res:
+         if(res[0] == 0):
+            print_book(book)
+
+
 def main() -> int:
-   #establishing the connection
+   # establishing the connection
    global conn
 
    conn = psycopg2.connect(
       database = DATABASE, user = USER, password = PASSWORD, host = HOST
    )
    conn.autocommit = True
+
+   beforeUpdate()
    scanRoot(pathZip)
+   afterUpdate()
 
    #Closing the connection
    conn.close()
