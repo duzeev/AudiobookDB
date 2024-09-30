@@ -87,7 +87,11 @@ def make_cycle_list_small(cycle_id):
 
     return cline
 
-def make_cycle_list_root(root_cycle_id):
+
+const_str_cycle_first = '|----'
+const_str_cycle_midle = '----'
+
+def make_cycle_list_root(root_cycle_id, books):
     cdb = conn.cursor()
     clist = []
     sql  = 'SELECT id, title, parent_id FROM cycle WHERE id = \'{}\';'.format(str(root_cycle_id))
@@ -97,7 +101,7 @@ def make_cycle_list_root(root_cycle_id):
     if res == None:
         return None
 
-    clist.append([False, 0, res[0], res[1], '|--'])
+    clist.append([False, 0, res[0], res[1], const_str_cycle_first])
 
     was = True
     while(was):
@@ -111,15 +115,23 @@ def make_cycle_list_root(root_cycle_id):
                 cdb.execute(sql)
                 res = cdb.fetchall()
                 for r in res:
-                    s = '|' + str_append_list_join('--', cur[1]+1) + '--'
+                    s = '|' + str_append_list_join(const_str_cycle_midle, cur[1]+1) + const_str_cycle_midle
                     clist.insert(i+1, [False, cur[1]+1, r[0], r[1], s])
                 was = True
+
+                sql = 'SELECT id, title, year, cycle_id, num FROM book WHERE cycle_id = \'' + str(cur[2]) + '\' ORDER BY num;'
+                cdb.execute(sql)
+                res_books = cdb.fetchall()
+                if len(res_books) > 0:
+                    for b in res_books:
+                        books.append(make_book(b[0], b[1], b[2], b[3]))
+
                 break
 
     return clist
 
             
-def make_full_cycle_list(cycle_id):
+def make_full_cycle_list(cycle_id, books):
     if cycle_id == None:
         return None
 
@@ -136,7 +148,7 @@ def make_full_cycle_list(cycle_id):
         root_cycle_id = cur_cycle_id
         cur_cycle_id = res[2]
 
-    return make_cycle_list_root(root_cycle_id)
+    return make_cycle_list_root(root_cycle_id, books)
 
 
 def make_release_reader(id):
@@ -190,22 +202,19 @@ def cycle(id):
     id = int(id)
 
     cdb = conn.cursor()
+    books = []
 
-    cycle_list = make_full_cycle_list(id)
+    cycle_list = make_full_cycle_list(id, books)
     for c in cycle_list:
         if c[2] == id:
             c[4] += '>'
         else:
             c[4] += ' '
 
-    sql = 'SELECT id, title, year, cycle_id, num FROM book WHERE cycle_id = \'' + str(id) + '\' ORDER BY num;'
-    cdb = conn.cursor()
-    cdb.execute(sql)
-    res_books = cdb.fetchall()
-    books = []
-    if len(res_books) > 0:
-        for b in res_books:
-            books.append(make_book(b[0], b[1], b[2], b[3]))
+
+    books.clear()
+    cycle = make_cycle_list_root(id, books)
+
 
     return render_template("cycles.html", cycle_list=cycle_list, books=books, alphabet_count=alphabet_count)
 
