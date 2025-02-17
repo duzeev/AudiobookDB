@@ -1,0 +1,17 @@
+source ~/pets-projects/env/bin/activate
+
+python manage.py sqlflush
+
+python manage.py makemigrations AudioBook
+python manage.py migrate
+python manage.py sqlmigrate AudioBook 0001
+
+python manage.py load_data
+
+python manage.py runserver
+
+# Automatically create file 'requirements.txt'
+# install
+pip3 install pipreqs
+# Run in current directory   create 
+python3 -m  pipreqs.pipreqs .
