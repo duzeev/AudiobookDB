@@ -13,20 +13,6 @@
             "justMyCode": true
         },
         {
-            "name": "Python: ArchFolder Linux",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/archfolder.py",
-            "args": [
-                "/mnt/wwn-0x5000c5009b250c6e-part1/AudioBookRaw/",
-                "/mnt/wwn-0x5000c5009b250c6e-part1/AudioBook/",
-                "/mnt/wwn-0x5000c5009b250c6e-part1/AudioBook/"
-            ],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "justMyCode": true
-        },        
-        {
             "name": "Bash-Debug (hardcoded script name)",
             "type": "bashdb",
             "request": "launch",
@@ -35,20 +21,34 @@
             "args": []
         },
         {
-            "name": "Linux Update DB",
+            "name": "Python: ArchFolder Linux",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/archfolder.py",
+            "args": [
+                "/mnt/Archive/AudioBookRaw/",
+                "/mnt/Archive/AudioBook/",
+                "/mnt/Archive/AudioBook/"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },        
+        {
+            "name": "Python: Linux Update DB",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/db-update.py",
             "args": [
-                "/mnt/wwn-0x5000c5009b250c6e-part1/AudioBook/",
-                "/mnt/wwn-0x5000c5009b250c6e-part1/AudioBook/"
+                "/mnt/Archive/AudioBook/",
+                "/mnt/Archive/AudioBook/"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "justMyCode": true
         },
         {
-            "name": "Lunux Server",
+            "name": "Python: Flask Lunux Server",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/server.py",
@@ -85,6 +85,33 @@
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Django Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "cd AudioBookSite && ${workspaceFolder}/manage.py",
+            "cwd": "${workspaceFolder}/AudioBookSite",
+            "console": "integratedTerminal",
+            "args": [
+                "runserver",
+                "--noreload",
+                "--nothreading"
+            ],
+            "django": true
+        },
+        {
+            "name": "Python: Django load_data",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/AudioBookSite",
+            "program": "${workspaceFolder}/manage.py",
+            "console": "integratedTerminal",
+            "args": [
+                "load_data"
+            ],
+            "django": true
         }
+
     ]
 }

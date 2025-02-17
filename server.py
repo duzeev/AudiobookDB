@@ -131,7 +131,7 @@ def make_cycle_list_root(root_cycle_id, books):
     return clist
 
             
-def make_full_cycle_list(cycle_id, books):
+def make_full_cycle_list(cycle_id):
     if cycle_id == None:
         return None
 
@@ -148,6 +148,7 @@ def make_full_cycle_list(cycle_id, books):
         root_cycle_id = cur_cycle_id
         cur_cycle_id = res[2]
 
+    books = []
     return make_cycle_list_root(root_cycle_id, books)
 
 
@@ -196,28 +197,56 @@ def make_book(id, title, year, cycle_id):
     return book
 
 
+
+
 @app.route('/cycle/<id>/')
 def cycle(id):
 
     id = int(id)
 
-    cdb = conn.cursor()
-    books = []
-
-    cycle_list = make_full_cycle_list(id, books)
+    cycle_list = make_full_cycle_list(id)
     for c in cycle_list:
         if c[2] == id:
             c[4] += '>'
         else:
             c[4] += ' '
 
-
+    books = []
     books.clear()
-    cycle = make_cycle_list_root(id, books)
+    make_cycle_list_root(id, books)
+
+    st = ' \
+        <ul class="tree"> \
+            <li> \
+                <details open> \
+                    <summary>Планеты гиганты</summary> \
+                    <ul> \
+                        <li> \
+                            <details open> \
+                                <summary>Газовые</summary> \
+                                <ul> \
+                                    <li>Юпитер</li> \
+                                    <li>Сатурн</li> \
+                                </ul> \
+                            </details> \
+                        </li> \
+                        <li> \
+                            <details open> \
+                                <summary>Ледяные</summary> \
+                                <ul> \
+                                    <li>Уран</li> \
+                                    <li>Нептун</li> \
+                                </ul> \
+                            </details> \
+                        </li> \
+                    </ul> \
+                </details> \
+            </li> \
+        </ul> \
+    '
 
 
-    return render_template("cycles.html", cycle_list=cycle_list, books=books, alphabet_count=alphabet_count)
-
+    return render_template("cycles.html", st=st, cycle_list=cycle_list, books=books, alphabet_count=alphabet_count)
 
 @app.route('/author/<id>/')
 def author(id):
@@ -337,8 +366,30 @@ def alphabet(c):
     return render_template("alphabet.html", alphabet_count=alphabet_count, 
                         first_name=first_name, last_name=last_name, nick_name=nick_name)
 
+
+
+def tree_find(e, t):
+    if e in t:
+        return t
+    for v in t.values():
+        r = tree_find(e, v)
+        if r:
+            return r
+    return None
+
+def i():
+    dict_ = {'A':['B', 'C'], 'B':['D','E'], 'C':['F', 'G', 'H'], 'E':['I', 'J']}
+    tree = {}
+    for k,v in dict_.items():
+        n = tree_find(k, tree)
+        (tree if not n else n)[k] = {e:{} for e in v}
+    return render_template('index.html', **locals())
+
 @app.route('/')
 def index():
+
+    i()
+
     pioples = []
 
     cdb = conn.cursor()

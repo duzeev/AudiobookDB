@@ -2,9 +2,18 @@
 {% block content %}
     <h1>Цикл: </h1>
     
+    <!-- {% for c in cycle_list %}
+        <p style="font-size: 20px">{{c[4]}} <a href="{{ url_for('cycle', id=c[2]) }}">{{c[3]}}</a></p>
+    {% endfor%} -->
+
+
     {% for c in cycle_list %}
         <p style="font-size: 20px">{{c[4]}} <a href="{{ url_for('cycle', id=c[2]) }}">{{c[3]}}</a></p>
     {% endfor%}
+
+    <!-- <div>
+        {{st|safe}}
+    </div> -->
 
     {% for b in books %}
         <div class="main">

@@ -3,11 +3,10 @@
 source ./conf-linux.sh
 
 cd static
-ln -s $DIR_ZIP zip
-ln -s $DIR_PIC pic
+unlink zip
+unlink pic
 cd ..
 
 cd AudioBookSite/AudioBook/static
-ln -s $DIR_ZIP zip
-ln -s $DIR_PIC pic
-
+unlink zip
+unlink pic
