@@ -81,11 +81,10 @@ def addCycleDB(parent, num, year, title):
     return c[0]
 
 def addCycleDir(bookinfo, curr_cycle_all):
-  
    # print('add cycle ' + curr_cycle_all + ' ')
    # if bookinfo[infoParentCycle] != None:
    #    print(infoParentCycle + ' ' + bookinfo[infoParentCycle])
-
+   
    booki = copy.deepcopy(bookinfo)
 
    num, year, str_othe = CutNumYearTitle(curr_cycle_all)
@@ -162,7 +161,7 @@ def AddPiople(name_in_list):
         p.middle_name = fio[1]
         p.last_name = fio[2]
     else:
-        print("long FIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print(f"long FIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {name_in_list}")
         
     p.save()
     return p

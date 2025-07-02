@@ -1,30 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 {% load static %}
-{% comment %} <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}"/> {% endcomment %}
-<link rel="stylesheet" href="{% static "css/styles.css" %}" />
-<section class="content">
-  {% comment %} <header>
-    {% block header %}
-    <ul class="mainmenu">
-      <li><a href="{{url_for('index')}}">Домой</a></li>
-      <li><a href="{{url_for('news')}}">Новинки</a></li>
-    </ul>
-    {% endblock %}
-  </header> {% endcomment %}
-  {% comment %} <body>
-    {% for message in get_flashed_messages() %}
-      <div class="flash">{{ message }}</div>
-    {% endfor %}
-    <p  style="font-size: 20px; text-align: center;">
-      {% for a in alphabet_count %}
-          {% if  a[1] > 0 %}
-              <a href="{{url_for('alphabet', c=a[0])}}">{{a[0]}}</a>
-          {% else %}
-              {{a[0]}}
-          {% endif %}
-      {% endfor %}
-    </p>
-    {% block content %}
-    {% endblock %}
-  </body> {% endcomment %}
-</section>
+<head>
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #33333333;
+        }
+
+        .topnav a {
+            float: left;
+            color: #333333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>    
+</head>
+<html>
+    <header>
+        {% block header %}
+            <div class="topnav">
+                <a href="{% url 'index' %}">Домой</a>
+                <a href="{% url 'news' %}">Новинки</a>
+            </div>
+        {% endblock %}
+    </header>
+    <body>
+        <div>{% block content%}{% endblock content %}</div>
+    </body>
+</html>

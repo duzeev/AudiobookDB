@@ -1,0 +1,17 @@
+{% extends "./base.html" %}
+
+{% block content %}
+    <h1>{{title}}</h1>
+    {% if author.all|length > 0 %}
+        <h1>Автор:</h1>
+        {% for book in author %}
+            {% include "book.html" with book=book %}
+        {% endfor %}
+    {% endif %}
+    {% if reader.all|length > 0 %}
+        <h1>Озвучка:</h1>
+        {% for book in reader %}
+            {% include "book.html" with book=book %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

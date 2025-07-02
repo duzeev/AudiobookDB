@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'AudioBook',
+    'mptt',
+    'AudioBook'
 ]
 
 MIDDLEWARE = [
@@ -119,16 +120,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# STATICFILES_DIRS = [ os.path.join(BASE_DIR, '/static') ]
 STATICFILES_DIRS = [
-    BASE_DIR / STATIC_URL,
+    BASE_DIR / "static"
 ]
-
-print('static paths are:')
-for p in STATICFILES_DIRS:
-    print(Path(p).resolve())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

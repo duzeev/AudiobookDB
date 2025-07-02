@@ -1,0 +1,43 @@
+body {
+  background-image: url("../images/white-and-gray-geometric-pattern-background-vector.jpg");
+  font-family: Arial, Helvetica, sans-serif;
+}
+.bookmain {
+  background-color: #33333333;
+  padding: 8px;
+  margin: 10px 10px 0px 0px;
+  font-size: 24px;
+  flex:  1 0;
+  max-width: 100%;
+}
+
+.container {
+    column-count: 4;
+}
+
+.bookbase {
+  font-size: 20pt;
+}
+
+.booktitle {
+  font-size: 24pt;
+}
+
+.bookcycletitle {
+  font-size: 20pt;
+}
+
+.fit-picture {
+    position: relative;
+    width: 250px;
+}
+
+.image_new {
+  position: absolute;
+  top: -21px;
+  left: -21px;
+  width: 100px;
+  height: 100px;
+}
+
+
