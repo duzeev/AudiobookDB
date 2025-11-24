@@ -14,12 +14,12 @@
                     {% else %}
                         <p class="base">Автор:</p>
                     {% endif %}
-                    {% for w in book.writers.all %}
-                        <p style="font-size: 20px"><a href="/author/{{w.id}}">{{w}}</a></p>
-                    {% endfor %}
+                    {% for writer in book.writers.all %}
+                        <p style="font-size: 20px"><a href="/author/{{writer.id}}">{{writer}}</a></p>
+                    {% endfor %} 
                     {% if book.cycle != None %}
                         <p class="base">Цикл:</p>
-                        <p style="font-size: 20px"><a href="/cycle/{{book.cycle.id}}">{{book.cycle}}</a></p>
+                        {% include "cycle_one.html" with cycle=book.cycle %}
                     {% endif %}
                 </td>
                 {% for r in book.releases.all %}

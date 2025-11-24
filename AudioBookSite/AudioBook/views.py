@@ -36,11 +36,12 @@ def author(request, id):
     return HttpResponse(template.render(context, request))
 
 def cycle(request, id):
-    cycle = Book.objects.filter(releases__in=BookRelease.objects.filter(readers__id=id))
+    c = BookRelease.objects.filter(readers__id=id)
+    cycle = c
+    
+
     template = loader.get_template("cycle.html")    
     context = {
-        "title": p,
-        "author": author,
-        "reader": reader
+        "cycle": cycle
     }
     return HttpResponse(template.render(context, request))
