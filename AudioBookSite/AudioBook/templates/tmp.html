@@ -1,0 +1,11 @@
+	{% comment %}
+	{% while cycle.parent != null: %}
+		<p style="font-size: 20px"><a href="/cycle/{{cycle.id}}">{{cycle}}</a></p>
+		{% cycle.parent = cycle.parent %}
+	{% endwhile %} 
+	{% endcomment %}
+
+
+	{% comment %} 
+	<p style="font-size: 20px"><a href="/cycle/{{book.cycle.id}}">{{book.cycle}}</a></p> 
+	{% endcomment %}
