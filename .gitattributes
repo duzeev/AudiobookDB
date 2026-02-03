@@ -18,3 +18,7 @@
 
 # Mark minified CSS as generated for GitHub language stats/diffs
 *.min.css linguist-generated
+
+# Ensure HTML files are treated as text and normalized (LF in repo)
+*.html text
+
