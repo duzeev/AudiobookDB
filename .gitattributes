@@ -1,1 +1,20 @@
-*.py linguist-language=Python
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Ensure Python source files use LF line endings, especially for cross-OS compatibility
+*.py text eol=lf
+*.pyi text eol=lf
+
+# Mark certain common files as binary so Git doesn't try to diff or merge them
+*.pyc binary
+*.pyd binary
+*.whl binary
+
+# Improve diff output for Python files (optional, often default in modern Git)
+*.py diff=python
+
+# Ensure all .css files use LF line endings
+*.css text eol=lf
+
+# Mark minified CSS as generated for GitHub language stats/diffs
+*.min.css linguist-generated
