@@ -1,12 +1,14 @@
 {% load static %}
-{% load mptt_tags %}
 
 {% block content %}
     <div class="bookmain">
         <table>
             <tr>
                 <td width="350", valign="top">
-                    <p class="booktitle">{{ book.title }}</p>    
+                    {% for b in book.titles.all %}
+                        <p class="booktitle">{{ b.title }}</p>    
+                    {% endfor %}
+
                     <p class="bookbase">Год издания: {{ book.year }}</p>
                     
                     {% if book.writers.all|length > 1 %}

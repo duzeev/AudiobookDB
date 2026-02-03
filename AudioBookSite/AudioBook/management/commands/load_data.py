@@ -178,18 +178,49 @@ def AddGetPiopleDB(lst):
       
    return ret
 
+# ----------------------------------------------------------------------
+
+def GetPBookTitle(title):
+    p = BookTitle.objects.all().filter(title=title)
+    if(len(p) == 0):
+        return None      
+    return p[0]
+
+def AddBookTitle(title): 
+    b = BookTitle(title=title)
+    b.save()
+    return b
+
+def AddBookTitleDB(titles_list_str:str):
+   ret = []
+   lst = titles_list_str.split('=')
+   for w in lst:
+      id = GetPBookTitle(w)
+      if id == None:
+         id = AddBookTitle(w)
+      ret.append(id)
+   return ret
+
+# ----------------------------------------------------------------------
 
 def AddUpdateBookDB(title, cycle, year, num, writersDB):
     book = None
-    
-    b = Book.objects.all().filter(title=title)
+
+    titles = AddBookTitleDB(title)
+
+    titles_ids = []
+    for ti in titles:
+        titles_ids.append(ti.id)
+
+    b = Book.objects.all().filter(titles__id__in=titles_ids)
     if(len(b) == 0): 
-        book = Book(title=title, cycle=cycle, year=year, num=num)
+        book = Book(cycle=cycle, year=year, num=num)
     else:
         book = b[0]
     
     book.save()
     book.writers.set(writersDB)
+    book.titles.set(titles)
     book.save()
     return book
 

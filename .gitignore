@@ -1,2 +1,6 @@
+__pycache__
 *.pyc
-AudioBook/migrations/*
+AudioBookSite/.venv
+AudioBookSite/AudioBook/migrations/**
+AudioBookSite/AudioBook/static/pic/
+AudioBookSite/AudioBook/static/zip/

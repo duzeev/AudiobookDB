@@ -40,27 +40,28 @@ class BookRelease(models.Model):
     new = models.BooleanField(default=True)
     to_delete = models.BooleanField(default=False)    
     
-    def __str__(self):
-        ret = ''
-        book = Book.objects.filter(releases__in=BookRelease.objects.filter(id=self.id))       
-        for b in book:
-            if len(ret) != 0:
-                ret += ", "    
-            ret += b.title
-        book_release = BookRelease.objects.get(id=self.id)
-        for reader in book_release.readers.all():
-            ret +=  ", " + make_full_name(reader)
-            
-        return ret
+    # def __str__(self):
+    #     ret = ''
+    #     book = Book.objects.filter(releases__in=BookRelease.objects.filter(id=self.id))       
+    #     for b in book:
+    #         if len(ret) != 0:
+    #             ret += ", "    
+    #         ret += b.title
+    #     book_release = BookRelease.objects.get(id=self.id)
+    #     for reader in book_release.readers.all():
+    #         ret +=  ", " + make_full_name(reader)            
+    #     return ret
     
+class BookTitle(models.Model):
+    title = models.CharField(max_length=255)
 
 class Book(models.Model):
-    title = models.CharField(max_length=255)
     cycle = models.ForeignKey(Cycle, on_delete = models.CASCADE, blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     num = models.IntegerField(blank=True, null=True)
+    titles = models.ManyToManyField(BookTitle, blank=True)
     writers = models.ManyToManyField(Piople)
     releases = models.ManyToManyField(BookRelease)
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.titles
 
