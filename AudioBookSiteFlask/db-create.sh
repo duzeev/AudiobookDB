@@ -1,6 +1,8 @@
 #/bin/bash
 
-source conf-linux.sh
+source ../conf-linux.sh
+
+source ../AudioBookSiteDjango/.venv/bin/activate
 
 sudo -u postgres psql -a -f ./sql/create_db.sql
 sudo -u postgres psql -d daudiobookdb -a -f ./sql/create_tables.sql

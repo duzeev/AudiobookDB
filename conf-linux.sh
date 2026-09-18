@@ -1,7 +1,5 @@
 #/bin/bash
 
-source ./AudioBookSite/.venv/bin/activate
-
 DIR_BOOK_MAIN="/mnt/Archive/AudioBook/"
 DIR_BOOK_FROM="/mnt/Archive/AudioBookRaw/"
 

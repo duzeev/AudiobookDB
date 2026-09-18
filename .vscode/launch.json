@@ -90,8 +90,8 @@
             "name": "Python: Django Server",
             "type": "debugpy",
             "request": "launch",
-            "program": "cd AudioBookSite && ${workspaceFolder}/manage.py",
-            "cwd": "${workspaceFolder}/AudioBookSite",
+            "program": "cd AudioBookSiteDjango && ${workspaceFolder}/manage.py",
+            "cwd": "${workspaceFolder}/AudioBookSiteDjango",
             "console": "integratedTerminal",
             "args": [
                 "runserver",
@@ -104,7 +104,7 @@
             "name": "Python: Django load_data",
             "type": "debugpy",
             "request": "launch",
-            "cwd": "${workspaceFolder}/AudioBookSite",
+            "cwd": "${workspaceFolder}/AudioBookSiteDjango",
             "program": "${workspaceFolder}/manage.py",
             "console": "integratedTerminal",
             "args": [

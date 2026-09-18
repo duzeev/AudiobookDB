@@ -2,11 +2,12 @@
 
 source ./conf-linux.sh
 
-cd static
+cd AudioBookSiteFlask/static
 unlink zip
 unlink pic
-cd ..
+cd ../..
 
-cd AudioBookSite/AudioBook/static
+cd AudioBookSiteDjango/AudioBook/static
 unlink zip
 unlink pic
+cd ../../..

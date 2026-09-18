@@ -1,6 +1,7 @@
 __pycache__
 *.pyc
-AudioBookSite/.venv
-AudioBookSite/AudioBook/migrations/**
-AudioBookSite/AudioBook/static/pic
-AudioBookSite/AudioBook/static/zip
+AudioBookSiteDjango/.venv
+AudioBookSiteDjango/AudioBook/migrations/**
+AudioBookSiteDjango/AudioBook/static/pic
+AudioBookSiteDjango/AudioBook/static/zip
+AudioBookSiteDjango/db.sqlite3
